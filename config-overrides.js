@@ -25,16 +25,6 @@ module.exports = override(
   // scss全局变量
   addWebpackModuleRule({
     test: /\.scss$/,
-    use: [
-      'style-loader',
-      'css-loader',
-      'sass-loader',
-      {
-        loader: 'sass-resources-loader',
-        options: {
-          resources: ['./src/assets/scss/varable.scss'],
-        },
-      },
-    ],
+    use: ['style-loader', 'css-loader', 'sass-loader'],
   })
 )

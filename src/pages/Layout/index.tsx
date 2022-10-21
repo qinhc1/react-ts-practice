@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Outlet } from 'react-router-dom'
 import { routeRender } from '../../router'
-import AppSider from './compoments/AppSider'
+import AppSider from './components/AppSider'
 // import { routes } from '../router/routes'
 
 class Layout extends React.Component {

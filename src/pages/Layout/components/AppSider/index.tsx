@@ -2,16 +2,19 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
+  PoweroffOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu } from 'antd'
+import { Button, Layout, Menu } from 'antd'
 import type { MenuProps } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Routes, Outlet, useLocation } from 'react-router-dom'
+import { Routes, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { routeRender } from '../../../../router'
+import '../../sider.scss'
 
 const { Header, Sider, Content } = Layout
 import { Link } from 'react-router-dom'
 import { routes } from '../../../../router/routes'
+import { removeToken } from '@/utils/token'
 
 const { SubMenu, Item } = Menu
 
@@ -97,10 +100,26 @@ const AppSider: React.FC = () => {
     setOpenKeys(getOpenKeys(pathname))
   }, [])
 
+  const navigate = useNavigate()
+  // 退出
+  const logout = () => {
+    removeToken()
+    localStorage.removeItem('user')
+    navigate('/');
+  }
+
   return (
-    <Layout>
+    <Layout className="layout_sider_con">
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="logo">
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: 'trigger',
+              onClick: () => setCollapsed(!collapsed),
+            }
+          )}
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -114,13 +133,15 @@ const AppSider: React.FC = () => {
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: 'trigger',
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
+          <div className="app_rightBox_header_right" style={{ padding: 0 }}>
+            <p style={{ marginRight: '10px' }}>qqq</p>
+            <Button
+              onClick={logout}
+              type="primary"
+              icon={<PoweroffOutlined />}
+              size="small"
+            ></Button>
+          </div>
         </Header>
         <Content
           className="site-layout-background"

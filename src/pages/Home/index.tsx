@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect, useSelector } from 'react-redux'
 import { useNavigate, Outlet } from 'react-router-dom'
 
 const Home: React.FC = (props) => {
@@ -8,6 +9,11 @@ const Home: React.FC = (props) => {
       state: { id: 'ide', name: '名字', list: [{ cid: '123' }] },
     })
   }
+  const userInfo = useSelector((state: any) => state.user)
+  console.log(userInfo);
+  console.log(props);
+
+  
 
   return (
     <div id="home" onClick={gorouter}>
@@ -16,4 +22,4 @@ const Home: React.FC = (props) => {
   )
 }
 
-export default Home
+export default connect(({ user }) => ({ user }), {})(Home)
